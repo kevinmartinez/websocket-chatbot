@@ -68,6 +68,9 @@ wss.on('connection', (ws) => {
       wss.clients.forEach((client) => {
         // Send message to each client in the loop
         client.send(message)
+        if (message === botAnswers[0].question) {
+          client.send(`Bot says: ${botAnswers[0].answer}`)
+        }
       })
     }
   })
