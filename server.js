@@ -50,6 +50,7 @@ app.get('/api', (request, response) => {
   response.json(botAnswers)
 })
 
+// Connect express app and the websocket server
 const server = http.createServer(app)
 const wss = new WebSocketServer.Server({ server })
 
@@ -58,8 +59,20 @@ const wss = new WebSocketServer.Server({ server })
 // Think of a websocket as a connected endpoint
 // Every client that connects will call this on function to fire
 wss.on('connection', (ws) => {
-  ws.send(`${botAnswers[2].answer}`)
-
+  // Add listeners to the WebSocket
+  ws.on('message', (message) => {
+    if (message === 'exit') {
+      ws.close()
+    } else {
+      // All socket clients are placed in an array
+      wss.clients.forEach((client) => {
+        // Send message to each client in the loop
+        client.send(message)
+      })
+    }
+  })
+  // Static welcome message sent from server
+  ws.send('Welcome')
   console.log('socket connection?')
 })
 
