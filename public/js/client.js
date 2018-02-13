@@ -1,17 +1,5 @@
-const html =
-`
-<section>
-  <heading>
-    <h2 class="moo">Hello</h2>
-    <div class="output"></div>
-  </heading>
-</section>
-`
-
-document.getElementById('botAnswer').innerHTML = html
-
 // Create a new WebSocket instance
-const ws = new WebSocket('ws://localhost:8080')
+const ws = new WebSocket('ws://localhost:3030')
 
 // WebSocket on connection
 ws.onopen = () => console.log('socket connected')
@@ -36,7 +24,17 @@ chatForm.addEventListener('submit', (event) => {
 
 // Print user message to document
 const printMessage = (message) => {
+  console.log(message)
+  const li = document.createElement('li')
   const p = document.createElement('p')
+  if (message.includes('Bot')) {
+    li.className = 'chat__box--cpu'
+    p.classList = 'chat__text chat__text--cpu'
+  } else {
+    li.className = 'chat__box--user'
+    p.classList = 'chat__text chat__text--user'
+  }
+
   p.innerText = message
-  document.querySelector('div.messages').appendChild(p)
+  document.querySelector('ul.messages').appendChild(li).appendChild(p)
 }

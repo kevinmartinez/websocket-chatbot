@@ -92,7 +92,7 @@ wss.on('connection', (ws) => {
 // })
 
 // The express app should listen to this port
-server.listen(8080, () => console.log(`Listening on port: ${server.address().port}`))
+server.listen(3030, () => console.log(`Listening on port: ${server.address().port}`))
 
 // By exporting this app instance as a module,
 // it can be included in other files, e.g test files
