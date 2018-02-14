@@ -52,6 +52,7 @@ p {
 .chat-field {
   background: #fff;
   padding: 10px;
+  min-height: 500px;
 }
 
 .chat__text {
@@ -117,4 +118,8 @@ p {
 .msg {
   background: #ccc;
   padding: 5px
+}
+
+main {
+  height: 560px;
 }

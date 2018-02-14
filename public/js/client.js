@@ -8,21 +8,36 @@ ws.onopen = () => console.log('socket connected')
 ws.onclose = () => console.log('socket disconnnected')
 
 // WebSocket emit message
-ws.onmessage = (message) => printMessage(message.data)
+ws.onmessage = (message) => {
+  printMessage(message.data)
+}
 
 // Select our form that will contain the messages
 const chatForm = document.querySelector('.chat-form')
+// Select the chat messages area, for auto scrolling
+const chatField = document.querySelector('.chat-field')
+const phoneCase = document.querySelector('.phone-case')
 
 chatForm.addEventListener('submit', (event) => {
   event.preventDefault()
-  let input = document.getElementById('message')
+  const input = document.getElementById('message')
   // Send input to server
   ws.send(input.value)
   // Clean up input field
   input.value = ''
 })
 
-// Print user message to document
+// I have built a function that scrolls the chat field
+// To create a proper 'auto-scrolling' when new messages
+// are recieved
+const scrollDown = (element, parent) => {
+  console.log('scrollDown()')
+  const topPos = element.offsetTop
+  console.log(topPos)
+  parent.scrollTop = topPos
+}
+
+// Print user/cpu message to document
 const printMessage = (message) => {
   console.log(message)
   const li = document.createElement('li')
@@ -37,4 +52,5 @@ const printMessage = (message) => {
 
   p.innerText = message
   document.querySelector('ul.messages').appendChild(li).appendChild(p)
+  scrollDown(li, phoneCase)
 }
