@@ -1,9 +1,13 @@
 {
   "name": "new-chatbot",
   "version": "0.1.0",
+  "babel": {
+      "presets": ["env"]
+  },
   "description": "a websockets based chat bot",
   "main": "server.js",
   "scripts": {
+    "build": "babel public/js --out-file build/main.bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -11,7 +15,9 @@
   ],
   "author": "kevin martinez",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  },
   "dependencies": {
     "express": "^4.16.2",
     "ws": "^4.0.0"

@@ -1,4 +1,5 @@
 // Create a new WebSocket instance
+// import { WebSocket } from 'module'
 const ws = new WebSocket('ws://localhost:3030')
 
 // WebSocket on connection
@@ -15,7 +16,6 @@ ws.onmessage = (message) => {
 // Select our form that will contain the messages
 const chatForm = document.querySelector('.chat-form')
 // Select the chat messages area, for auto scrolling
-const chatField = document.querySelector('.chat-field')
 const phoneCase = document.querySelector('.phone-case')
 
 chatForm.addEventListener('submit', (event) => {

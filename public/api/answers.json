@@ -1,0 +1,22 @@
+[
+  {
+    "question": "hi",
+    "answer": "hello"
+  },
+  {
+    "question": "help",
+    "answer": "here are my help options: "
+  },
+  {
+    "question": "time",
+    "answer": "the current time is: "
+  },
+  {
+    "question": "who",
+    "answer": "i am a bot"
+  },
+  {
+    "question": "bye",
+    "answer": "ciao"
+  }
+]

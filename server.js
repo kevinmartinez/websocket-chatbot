@@ -7,29 +7,9 @@ const WebSocketServer = require('ws')
 const app = express()
 
 // Set up Bot answers in an array of objects
-// TODO: Move to an api file
-let botAnswers = [
-  {
-    question: 'hi',
-    answer: 'hello'
-  },
-  {
-    question: 'help',
-    answer: 'here are my help options: '
-  },
-  {
-    question: 'time',
-    answer: 'the current time is: '
-  },
-  {
-    question: 'who',
-    answer: 'i am a bot'
-  },
-  {
-    question: 'bye',
-    answer: 'ciao'
-  }
-]
+// The Chatbots answer API
+const api = require('./public/api/answers.json')
+console.log(`Question: ${api[3].question} and answer: ${api[3].answer}`)
 
 // Middleware to log each request, when we have a request, the express app will use this middleware,
 // BEFORE going to the static. This adds functionality to our pipeline,
@@ -46,8 +26,8 @@ app.use(express.static('./public'))
 
 // Invoke express get method...
 app.get('/api', (request, response) => {
-  // Output the bot answers
-  response.json(botAnswers)
+  // Output the bot answers,
+  response.json(api)
 })
 
 // Connect express app and the websocket server
@@ -68,8 +48,8 @@ wss.on('connection', (ws) => {
       wss.clients.forEach((client) => {
         // Send message to each client in the loop
         client.send(message)
-        if (message === botAnswers[0].question) {
-          client.send(`Bot says: ${botAnswers[0].answer}`)
+        if (message === api[0].question) {
+          client.send(`Bot says: ${api[0].answer}`)
         }
       })
     }
