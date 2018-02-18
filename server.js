@@ -1,3 +1,4 @@
+'use strict'
 // Create an express app by requiring the express module
 const express = require('express')
 const http = require('http')
@@ -47,10 +48,19 @@ wss.on('connection', (ws) => {
       // All socket clients are placed in an array
       wss.clients.forEach((client) => {
         // Send message to each client in the loop
-        client.send(message)
-        if (message === api[0].question) {
+        client.send(message, (error) => {
+          if (error) {
+            console.error(error)
+            console.log('moo')
+          }
+        })
+        if (message === questions[0]) {
           client.send(`Bot says: ${api[0].answer}`)
         }
+
+// function checkAvailability(arr, val) {
+//   return arr.some(arrVal => val === arrVal);
+// }
       })
     }
   })

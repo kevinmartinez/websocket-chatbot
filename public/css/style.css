@@ -37,6 +37,7 @@ p {
 }
 
 .phone-case {
+  background: #fff;
   border: 15px solid #000;
   border-top-width: 30px;
   border-bottom-width: 0;
@@ -46,13 +47,12 @@ p {
   max-width: 320px;
   margin: auto;
   overflow: scroll;
-  max-height: 500px;
 }
 
 .chat-field {
-  background: #fff;
   padding: 10px;
-  min-height: 500px;
+  padding-top: 30px;
+  height: 400px;
 }
 
 .chat__text {

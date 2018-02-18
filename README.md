@@ -4,6 +4,7 @@
 * HTML
 * CSS
 * JavaScript (ES6)
+* WebSockets
 
 ## Choices
 * Standard JS
@@ -13,8 +14,7 @@
 ## Dependencies
 * Node
 * Express
-* WebSockets
-* Socket.io
+* WS package for native WebSockets
 
 ## Tools
 * Gulp
