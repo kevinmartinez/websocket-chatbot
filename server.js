@@ -2,8 +2,12 @@
 // Create an express app by requiring the express module
 const express = require('express')
 const http = require('http')
+
+const url = require('url')
+
 // ws module, build a WebSocket server
 const WebSocketServer = require('ws')
+
 // Application instance of express, by invoking the express method
 const app = express()
 
@@ -11,6 +15,15 @@ const app = express()
 // The Chatbots answer API
 const api = require('./public/api/answers.json')
 console.log(`Question: ${api[3].question} and answer: ${api[3].answer}`)
+
+// Create a unique user id config
+let userId = 0
+
+let questions = api.map((item) => {
+  return item.question
+})
+
+console.log(questions)
 
 // Middleware to log each request, when we have a request, the express app will use this middleware,
 // BEFORE going to the static. This adds functionality to our pipeline,
@@ -34,24 +47,33 @@ app.get('/api', (request, response) => {
 // Connect express app and the websocket server
 const server = http.createServer(app)
 const wss = new WebSocketServer.Server({ server })
-
 // When new socket connected, this will fire up
 // First argument is an 'individual' socket ('ws')
 // Think of a websocket as a connected endpoint
 // Every client that connects will call this on function to fire
-wss.on('connection', (ws) => {
+wss.on('connection', (ws, req) => {
+  var thisId = ++userId
+
+  console.log('Client #%d connected', thisId)
+
+  // const location = url.parse(req.url, true)
+  // console.log(location)
   // Add listeners to the WebSocket
-  ws.on('message', (message) => {
+  ws.on('message', (message, id) => {
+    id = thisId
+    console.log(`message from: ${message} [ ...SERVER]`)
+    console.log(`msg from id: ${id}`)
+
     if (message === 'exit') {
       ws.close()
     } else {
       // All socket clients are placed in an array
+      // console.dir(wss)
       wss.clients.forEach((client) => {
         // Send message to each client in the loop
         client.send(message, (error) => {
           if (error) {
             console.error(error)
-            console.log('moo')
           }
         })
         if (message === questions[0]) {
@@ -65,7 +87,7 @@ wss.on('connection', (ws) => {
     }
   })
   // Static welcome message sent from server
-  ws.send('Welcome')
+  ws.send(`Welcome`)
   console.log('socket connection?')
 })
 

@@ -4,20 +4,22 @@ const ws = new WebSocket('ws://localhost:3030')
 
 // Test to add unique id
 // For ex with timestamp?
-// let userId = new Date()
+// let userId = new Date(s)
 // console.log(userId)
 
 ws.addEventListener('open', () => {
-  ws.send('haiii')
+  ws.send(`haiii [from: CLIENT]`)
 })
 
 let userId
+// Get a unique id stamp
+userId = new Date()
+console.log(`userId: ${userId}`)
 
 // WebSocket on connection
-ws.onopen = () => {
-  console.log('socket connected')
-  userId = new Date()
-  console.log(`user: ${userId} has connected`)
+ws.onopen = (message) => {
+  console.log(`socket connection: [client]`)
+  console.log(message.data)
 }
 
 // WebSocket on close
@@ -27,7 +29,6 @@ ws.onclose = () => console.log('socket disconnnected')
 ws.onmessage = (message) => {
   printMessage(message.data)
   // console.dir(message)
-  console.log(userId)
 }
 
 // Select our form that will contain the messages
@@ -48,9 +49,9 @@ chatForm.addEventListener('submit', (event) => {
 // To create a proper 'auto-scrolling' when new messages
 // are recieved
 const scrollDown = (element, parent) => {
-  console.log('scrollDown()')
+  // console.log('scrollDown()')
   const topPos = element.offsetTop
-  console.log(topPos)
+  // console.log(topPos)
   parent.scrollTop = topPos
 }
 
@@ -65,7 +66,7 @@ const newElement = (element) => {
 
 // Print user/cpu message to document
 const printMessage = (message) => {
-  console.log(message)
+  // console.log(message)
   const li = newElement('li')
   const p = newElement('p')
   if (message.includes('Bot') || message === 'Welcome') {
