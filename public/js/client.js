@@ -8,7 +8,7 @@ const ws = new WebSocket('ws://localhost:3030')
 // console.log(userId)
 
 ws.addEventListener('open', () => {
-  ws.send(`haiii [from: CLIENT]`)
+  // ws.send(`haiii [from: CLIENT]`)
 })
 
 let userId
@@ -64,20 +64,28 @@ const newElement = (element) => {
   return document.createElement(element)
 }
 
+// Give msg timestamps
+const timeStamp = () => {
+  const time = new Date()
+  console.log(time)
+  return time.toLocaleTimeString()
+}
+
 // Print user/cpu message to document
 const printMessage = (message) => {
+  const time = timeStamp()
   // console.log(message)
   const li = newElement('li')
   const p = newElement('p')
   if (message.includes('Bot') || message === 'Welcome') {
-    li.className = 'chat__box--cpu'
+    li.classList = 'chat__box chat__box--cpu'
     p.classList = 'chat__text chat__text--cpu'
   } else {
-    li.className = 'chat__box--user'
+    li.classList = 'chat__box chat__box--user'
     p.classList = 'chat__text chat__text--user'
   }
-
-  p.innerText = message
+  li.innerHTML = `<header>${time}</header>`
+  p.innerText = `${message}`
   document.querySelector('ul.messages').appendChild(li).appendChild(p)
   scrollDown(li, phoneCase)
 }
