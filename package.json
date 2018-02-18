@@ -2,7 +2,9 @@
   "name": "new-chatbot",
   "version": "0.1.0",
   "babel": {
-      "presets": ["env"]
+    "presets": [
+      "env"
+    ]
   },
   "description": "a websockets based chat bot",
   "main": "server.js",
@@ -16,7 +18,8 @@
   "author": "kevin martinez",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "standard": "^10.0.3"
   },
   "dependencies": {
     "express": "^4.16.2",
