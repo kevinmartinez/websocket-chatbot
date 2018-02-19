@@ -68,7 +68,8 @@ const newElement = (element) => {
 const timeStamp = () => {
   const time = new Date()
   console.log(time)
-  return time.toLocaleTimeString()
+  // en-GB for 24h timer
+  return time.toLocaleTimeString('en-GB')
 }
 
 // Print user/cpu message to document

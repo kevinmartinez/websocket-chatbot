@@ -16,7 +16,7 @@ const app = express()
 const api = require('./public/api/answers.json')
 console.log(`Question: ${api[3].question} and answer: ${api[3].answer}`)
 
-// Create a unique user id config
+// Needed to create somewhat unique user id's
 let userId = 0
 
 let questions = api.map((item) => {
@@ -25,7 +25,8 @@ let questions = api.map((item) => {
 
 console.log(questions)
 
-// Middleware to log each request, when we have a request, the express app will use this middleware,
+// Middleware to log each request, when we have a request,
+// the express app will use this middleware,
 // BEFORE going to the static. This adds functionality to our pipeline,
 // it will go through the pipeline, through the use methods when we have,
 // a request, until it get a response
@@ -45,15 +46,21 @@ app.get('/api', (request, response) => {
 })
 
 // Connect express app and the websocket server
+
 const server = http.createServer(app)
-const wss = new WebSocketServer.Server({ server })
+function verifyClient (info, next) {
+  info.req.foo = 'bar'
+  next(true)
+}
+const wss = new WebSocketServer.Server({ server, verifyClient })
 // When new socket connected, this will fire up
 // First argument is an 'individual' socket ('ws')
 // Think of a websocket as a connected endpoint
 // Every client that connects will call this on function to fire
 wss.on('connection', (ws, req) => {
+  // Create an unique user id
   var thisId = ++userId
-
+  console.log(req.foo)
   console.log('Client #%d connected', thisId)
 
   // const location = url.parse(req.url, true)
@@ -65,13 +72,21 @@ wss.on('connection', (ws, req) => {
     console.log(`msg from id: ${id}`)
 
     if (message === 'exit') {
+      console.log(this)
+      ws.send(`User #${thisId} quit`)
       ws.close()
     } else {
       // All socket clients are placed in an array
-      // console.dir(wss)
+      wss.options.server.getConnections((error, number) => {
+        if (error) {
+          console.error(error)
+        }
+        console.log('# of connections (from wss.options.server.getConnections(): ' + number)
+      })
       wss.clients.forEach((client) => {
         // Send message to each client in the loop
         client.send(message, (error) => {
+          console.log(`message from client: ${message}`)
           if (error) {
             console.error(error)
           }
@@ -90,18 +105,6 @@ wss.on('connection', (ws, req) => {
   ws.send(`Welcome`)
   console.log('socket connection?')
 })
-
-// wss.on('connection', function connection (ws, req) {
-//   const location = url.parse(req.url, true)
-//   // You might use location.query.access_token to authenticate or share sessions
-//   // or req.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-
-//   ws.on('message', function incoming (message) {
-//     console.log('received: %s', message)
-//   })
-
-//   ws.send('something')
-// })
 
 // The express app should listen to this port
 server.listen(3030, () => console.log(`Listening on port: ${server.address().port}`))
