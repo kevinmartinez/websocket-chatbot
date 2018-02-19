@@ -2,14 +2,8 @@
 // Create an express app by requiring the express module
 const express = require('express')
 const http = require('http')
-
-const url = require('url')
-
-// ws module, build a WebSocket server
 const WebSocketServer = require('ws')
-
-// Application instance of express, by invoking the express method
-const app = express()
+const app = express() // Get an application instance of 'express'
 
 // Set up Bot answers in an array of objects
 // The Chatbots answer API
@@ -18,7 +12,6 @@ console.log(`Question: ${api[3].question} and answer: ${api[3].answer}`)
 
 // Needed to create somewhat unique user id's
 let userId = 0
-
 let questions = api.map((item) => {
   return item.question
 })
@@ -46,9 +39,9 @@ app.get('/api', (request, response) => {
 })
 
 // Connect express app and the websocket server
-
 const server = http.createServer(app)
-function verifyClient (info, next) {
+// Test a verifyClient function
+const verifyClient = (info, next) => {
   info.req.foo = 'bar'
   next(true)
 }
@@ -94,10 +87,6 @@ wss.on('connection', (ws, req) => {
         if (message === questions[0]) {
           client.send(`Bot says: ${api[0].answer}`)
         }
-
-// function checkAvailability(arr, val) {
-//   return arr.some(arrVal => val === arrVal);
-// }
       })
     }
   })

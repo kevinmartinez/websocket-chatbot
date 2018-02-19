@@ -2,21 +2,16 @@
 
 const ws = new WebSocket('ws://localhost:3030')
 
-// Test to add unique id
-// For ex with timestamp?
-// let userId = new Date(s)
-// console.log(userId)
-
-ws.addEventListener('open', () => {
-  // ws.send(`haiii [from: CLIENT]`)
-})
-
 let userId
 // Get a unique id stamp
 userId = new Date()
 console.log(`userId: ${userId}`)
 
-// WebSocket on connection
+// WebSocket on connection, first 'style'
+ws.addEventListener('open', () => {
+  // ws.send(`haiii [from: CLIENT]`)
+})
+// WebSocket on connection, second 'style'
 ws.onopen = (message) => {
   console.log(`socket connection: [client]`)
   console.log(message.data)
@@ -55,11 +50,8 @@ const scrollDown = (element, parent) => {
   parent.scrollTop = topPos
 }
 
-// If we create them beforehand, can we optimize?
-// const li = document.createElement('li')
-// const p = document.createElement('p')
-
 // Create a 'create element' function
+// TODO: advance upon it
 const newElement = (element) => {
   return document.createElement(element)
 }
@@ -72,6 +64,7 @@ const timeStamp = () => {
   return time.toLocaleTimeString('en-GB')
 }
 
+// TODO: redo front-end logic, with a templating language
 // Print user/cpu message to document
 const printMessage = (message) => {
   const time = timeStamp()
