@@ -22,7 +22,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "express": "^4.16.2",
-    "ws": "^4.0.0"
+    "express": "^4.16.3",
+    "ws": "^4.1.0"
   }
 }
