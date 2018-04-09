@@ -65,6 +65,7 @@ const timeStamp = () => {
 }
 
 // TODO: redo front-end logic, with a templating language
+// PUG it
 // Print user/cpu message to document
 const printMessage = (message) => {
   const time = timeStamp()

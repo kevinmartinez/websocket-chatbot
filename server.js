@@ -32,11 +32,13 @@ app.use((request, response, next) => {
 // Serve static files to express via middleware
 app.use(express.static('public'))
 
+app.locals.appTitle = 'WebSocket ChatBot'
+
 app.set('view engine', 'pug')
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   // WHY?
-  res.render('index', {weather: null, error: null})
+  res.render('index', {connections: 0, error: null})
 })
 
 // Invoke express get method...
@@ -48,22 +50,25 @@ app.get('/api', (request, response) => {
 // Connect express app and the websocket server
 const server = http.createServer(app)
 // Test a verifyClient function
-const verifyClient = (info, next) => {
-  info.req.foo = 'bar'
-  next(true)
-}
+// const verifyClient = (info, next) => {
+//   info.req.foo = 'bar'
+//   next(true)
+// }
 
-const wss = new WebSocketServer.Server({ server, verifyClient })
+const wss = new WebSocketServer.Server({ server })
 // When new socket connected, this will fire up
 // First argument is an 'individual' socket ('ws')
 // Think of a websocket as a connected endpoint
 // Every client that connects will call this on function to fire
 wss.on('connection', (ws, req) => {
   // Create an unique user id
-  var thisId = ++userId
+  let thisId = ++userId
   console.log(req.foo)
   console.log('Client #%d connected', thisId)
 
+  ws.on('error', (error) => {
+    console.log(error.stack)
+  })
   // const location = url.parse(req.url, true)
   // console.log(location)
   // Add listeners to the WebSocket
@@ -80,7 +85,7 @@ wss.on('connection', (ws, req) => {
       // All socket clients are placed in an array
       wss.options.server.getConnections((error, number) => {
         if (error) {
-          console.error(error)
+          console.error(error.stack)
         }
         console.log('# of connections (from wss.options.server.getConnections(): ' + number)
       })
@@ -89,7 +94,7 @@ wss.on('connection', (ws, req) => {
         client.send(message, (error) => {
           console.log(`message from client: ${message}`)
           if (error) {
-            console.error(error)
+            console.error(error.stack)
           }
         })
         if (message === questions[0]) {
