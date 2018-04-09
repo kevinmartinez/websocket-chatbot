@@ -30,7 +30,14 @@ app.use((request, response, next) => {
 
 // express.static() invokes the static file server
 // Serve static files to express via middleware
-app.use(express.static('./public'))
+app.use(express.static('public'))
+
+app.set('view engine', 'pug')
+
+app.get('/', function (req, res) {
+  // WHY?
+  res.render('index', {weather: null, error: null})
+})
 
 // Invoke express get method...
 app.get('/api', (request, response) => {
@@ -45,6 +52,7 @@ const verifyClient = (info, next) => {
   info.req.foo = 'bar'
   next(true)
 }
+
 const wss = new WebSocketServer.Server({ server, verifyClient })
 // When new socket connected, this will fire up
 // First argument is an 'individual' socket ('ws')
