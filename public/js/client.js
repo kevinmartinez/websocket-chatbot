@@ -1,6 +1,8 @@
 'use strict'
 
-const ws = new WebSocket('ws://localhost:3030/index/')
+var host = location.origin.replace(/^http/, 'ws')
+
+const ws = new WebSocket(host)
 
 // const ws = new WebSocket('ws://www.host.com/path', {
 //   perMessageDeflate: false
