@@ -4,12 +4,12 @@
     "answer": "hello"
   },
   {
-    "question": "help",
-    "answer": "here are my help options: "
+    "question": "-help",
+    "answer": "Try these quesions: 'What is love?'"
   },
   {
-    "question": "time",
-    "answer": "the current time is: "
+    "question": "what is love?",
+    "answer": "Baby dont't hurt me, don't hurt me..."
   },
   {
     "question": "who",

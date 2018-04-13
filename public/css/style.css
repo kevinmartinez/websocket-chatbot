@@ -49,6 +49,10 @@ ul {
   overflow: scroll;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .chat-field {
   padding: 10px;
   padding-top: 30px;
