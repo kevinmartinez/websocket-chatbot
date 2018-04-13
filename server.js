@@ -4,6 +4,7 @@ const express = require('express')
 const http = require('http')
 const WebSocket = require('ws')
 const app = express() // Get an application instance of 'express'
+const port = process.env.PORT || 5000
 
 // Assign chatbots answers
 const api = require('./api/answers.json')
@@ -98,7 +99,7 @@ wss.on('connection', (ws, req) => {
 })
 
 // The express app should listen to this port
-server.listen(3030, () => console.log(`Listening on port: ${server.address().port}`))
+server.listen(port, () => console.log(`Listening on port: ${server.address().port}`))
 
 // By exporting this app instance as a module,
 // it can be included in other files, e.g test files
