@@ -1,30 +1,39 @@
 'use strict'
 
-const ws = new WebSocket('ws://localhost:3030')
+const ws = new WebSocket('ws://localhost:3030/index/')
 
-let userId
-// Get a unique id stamp
-userId = new Date()
-console.log(`userId: ${userId}`)
+// const ws = new WebSocket('ws://www.host.com/path', {
+//   perMessageDeflate: false
+// });
+
+// ws.onerror = (error) => {
+//   console.log(error)
+// }
+
+// let userId
+// // Get a unique id stamp
+// userId = new Date()
+// console.log(`userId: ${userId}`)
 
 // WebSocket on connection, first 'style'
 ws.addEventListener('open', () => {
-  // ws.send(`haiii [from: CLIENT]`)
+  ws.send(`haiii [from: CLIENT]`)
 })
+
 // WebSocket on connection, second 'style'
-ws.onopen = (message) => {
-  console.log(`socket connection: [client]`)
-  console.log(message.data)
+ws.onopen = (message, error) => {
+  // console.log('from client.js: ', message)
+  // console.log(message.data)
+}
+
+// WebSocket emit message
+ws.onmessage = (message, id) => {
+  printMessage(message.data)
+  console.log(id)
 }
 
 // WebSocket on close
-ws.onclose = () => console.log('socket disconnnected')
-
-// WebSocket emit message
-ws.onmessage = (message) => {
-  printMessage(message.data)
-  // console.dir(message)
-}
+ws.onclose = () => console.log('FRONT-END', 'socket disconnnected')
 
 // Select our form that will contain the messages
 const chatForm = document.querySelector('.chat-form')
@@ -56,11 +65,8 @@ const newElement = (element) => {
   return document.createElement(element)
 }
 
-// Give msg timestamps
 const timeStamp = () => {
   const time = new Date()
-  console.log(time)
-  // en-GB for 24h timer
   return time.toLocaleTimeString('en-GB')
 }
 
@@ -69,10 +75,9 @@ const timeStamp = () => {
 // Print user/cpu message to document
 const printMessage = (message) => {
   const time = timeStamp()
-  // console.log(message)
   const li = newElement('li')
   const p = newElement('p')
-  if (message.includes('Bot') || message === 'Welcome') {
+  if (message.includes('iFriend') || message === 'Welcome') {
     li.classList = 'chat__box chat__box--cpu'
     p.classList = 'chat__text chat__text--cpu'
   } else {

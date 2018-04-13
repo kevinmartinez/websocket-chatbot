@@ -10,10 +10,11 @@ html(lang="en")
     link(rel="stylesheet", href="css/style.css")
   body
     header.header.header--main
-      h1.heading.heading--main CSS Chat
+      h1.heading.heading--main iFriend #{ msg }
     main
       .phone-case
         ul.chat-field.messages
+          li #{ msg }
       form.chat-form.msg(action="")
         input#message.msg__input(type="text")
         button.msg__btn.btn Send
