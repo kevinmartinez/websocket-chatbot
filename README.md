@@ -1,5 +1,7 @@
 # iFriend, your friendly ChatBot
 
+**Created by: _Kevin Martinez_**
+
 ## Technologies
 
 * HTML
