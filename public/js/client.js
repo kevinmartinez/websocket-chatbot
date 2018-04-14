@@ -20,24 +20,17 @@ chatForm.addEventListener('submit', (event) => {
   input.value = ''
 })
 
-// I have built a function that scrolls the chat field
-// To create a proper 'auto-scrolling' when new messages
-// are recieved
+// Mimic a phone message autoscrolling
 const scrollDown = (element, parent) => {
   const topPos = element.offsetTop
   parent.scrollTop = topPos
 }
 
 // Why? Create elements easier
-const newElement = (element) => {
-  return document.createElement(element)
-}
+const newElement = (element) => document.createElement(element)
 
 // Why? Log messages
-const timeStamp = () => {
-  const time = new Date()
-  return time.toLocaleTimeString('en-GB')
-}
+const timeStamp = () => new Date().toLocaleTimeString('en-GB')
 
 // Why? Output messages
 const printMessage = (message) => {
@@ -45,7 +38,7 @@ const printMessage = (message) => {
   const li = newElement('li')
   const p = newElement('p')
 
-  if (message.includes('iFriend') || message.includes('disconnected')) {
+  if (message.startsWith('iFriend') || message.includes('disconnected')) {
     li.classList = 'chat__box chat__box--cpu'
     p.classList = 'chat__text chat__text--cpu'
   } else {

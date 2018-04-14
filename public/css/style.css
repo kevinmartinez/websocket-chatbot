@@ -62,13 +62,13 @@ ul {
 .chat__text {
   display: inline-block;
   border-radius: 8px;
-  padding: 15px;
+  padding: 10px;
   letter-spacing: 0.5px;
   margin-top: 0;
 }
 
 .chat__box {
-  font-size: 1em;
+  font-size: 0.9em;
 }
 
 .chat__box--cpu {

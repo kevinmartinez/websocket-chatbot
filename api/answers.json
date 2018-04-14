@@ -5,11 +5,15 @@
   },
   {
     "question": "-help",
-    "answer": "Try these quesions: 'What is love?'"
+    "answer": "'Try asking:', 'What is love','Who are you','Where can i learn CSS'"
   },
   {
-    "question": "what is love?",
+    "question": "what is love",
     "answer": "Baby dont't hurt me, don't hurt me..."
+  },
+  {
+    "question": "Where can i learn CSS",
+    "answer": "http://www.teamtreehouse.com"
   },
   {
     "question": "who",

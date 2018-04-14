@@ -75,10 +75,10 @@ wss.on('connection', (ws, req) => {
             console.error(error.stack)
           }
         })
-
         // Loop through Q/A API
         for (let i = 0; i < questions.length; i++) {
           console.log(questions[i])
+
           if (message.toLowerCase() === questions[i]) {
             client.send(`iFriend: ${api[i].answer}`)
           }
