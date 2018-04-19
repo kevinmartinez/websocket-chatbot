@@ -48,11 +48,11 @@ wss.on('connection', (ws, req) => {
         // Send message to each client in the loop
         client.send(message)
         // Loop through Q/A API
-        for (let i = 0; i < questions.length; i++) {
-          if (message.toLowerCase() === questions[i]) {
-            client.send(`iFriend: ${api[i].answer}`)
+        questions.forEach((question, index) => {
+          if (message.toLowerCase() === question) {
+            client.send(`iFriend: ${api[index].answer}`)
           }
-        }
+        })
       })
     }
   })
